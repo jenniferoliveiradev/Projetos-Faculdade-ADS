@@ -1,0 +1,93 @@
+# INSTRUCOES RAPIDAS
+
+## 1 Backend
+
+cd backend
+npm install
+copy .env.example .env
+
+
+Edite `backend/.env`:
+- `MONGODB_URI` (local ou Atlas)
+- `JWT_SECRET`
+- `WEATHER_FORECAST_API_URL`
+- `WEATHER_GEOCODING_API_URL`
+
+Inicie:
+
+npm start
+
+Se estiver ok, aparece:
+- `Servidor rodando na porta 5000`
+- `MongoDB conectado com sucesso!`
+
+## 2 Frontend
+
+Em outro terminal:
+
+cd frontend
+npm install
+npm run dev
+
+Acesse:
+- `http://localhost:3000`
+
+## 3 Admin
+
+O registro na tela cria sempre usuario `paciente`.
+
+Para promover um usuario para admin:
+
+cd backend
+npm run create-admin -- --email admin@clinica.com
+
+
+Para criar admin novo:
+
+npm run create-admin -- --email admin@clinica.com --senha 123456 --telefone 11999999999 --cpf 12345678901 --nome "Administrador"
+
+
+Depois, faça logout e login novamente no sistema.
+
+## 3.1 Secretario
+
+Opcao 1:
+- cadastre o usuario normalmente
+- entre com admin
+- no painel de usuarios, altere o tipo para `secretario`
+
+Opcao 2:
+
+cd backend
+npm run create-secretario -- --email secretario@clinica.com
+
+Para criar um secretario novo:
+
+npm run create-secretario -- --email secretario@clinica.com --senha 123456 --telefone 11999999999 --cpf 12345678901 --nome "Secretaria"
+
+## 4 Erros comuns
+
+### `ECONNREFUSED` no frontend (`/api/auth/login`)
+- Backend desligado, ou
+- Porta do backend diferente da usada pelo frontend.
+
+Se backend estiver em outra porta, crie `frontend/.env`:
+
+```env
+VITE_API_URL=http://localhost:8080
+```
+
+### `querySrv ECONNREFUSED` no Atlas
+- Libere IP em `Security > Network Access` no Atlas.
+- Se necessário, use connection string `mongodb://` (standard), sem `+srv`.
+
+### previsao do tempo nao aparece
+- Confira se o paciente foi cadastrado com CEP.
+- Confira se as URLs do Open-Meteo estao corretas no `.env`.
+- A previsao detalhada fica disponivel apenas para consultas nos proximos 5 dias.
+
+## 5 Arquivos principais
+
+- `README.md` - documentacao completa
+- `backend/.env.example` - modelo de variaveis
+- `start.bat` - inicializacao rapida no Windows
