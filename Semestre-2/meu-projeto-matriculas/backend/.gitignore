@@ -1,0 +1,6 @@
+cd g:\meu-projeto-matriculas
+git remote add origin https://github.com/jennioliveira-frontend/meu-projeto-matriculas.git
+git branch -M main
+git push -u origin mainnode_modules/
+.env
+*.log
